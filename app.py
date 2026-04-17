@@ -1,13 +1,12 @@
 import os
+import asyncio
 import requests
-import nest_asyncio
 import streamlit as st
 from dotenv import load_dotenv
 from pydantic_ai import Agent, RunContext
 from pydantic_ai.settings import ModelSettings
 
 load_dotenv()
-nest_asyncio.apply()
 
 os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
 
@@ -52,7 +51,7 @@ if question:
     with st.chat_message("assistant"):
         with st.spinner("Fetching weather..."):
             try:
-                result = my_agent.run_sync(question)
+                result = asyncio.run(my_agent.run(question))
                 st.write(result.output)
                 st.session_state.messages.append({"role": "assistant", "content": result.output})
             except Exception as e:
