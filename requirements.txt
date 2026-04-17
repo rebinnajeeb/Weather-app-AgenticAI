@@ -3,4 +3,3 @@ pydantic-ai
 pydantic-ai-slim[groq]
 streamlit
 python-dotenv
-nest-asyncio
